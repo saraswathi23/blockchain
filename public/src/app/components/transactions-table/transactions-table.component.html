@@ -1,0 +1,29 @@
+<p *ngIf="transactions.length == 0">This block has no  transactions</p>
+
+<table class="table table-hover table striped" *ngIf="transactions.length > 0">
+  <thead>
+    <th class="col">#</th>
+    <th class="col">From</th>
+    <th class="col">To</th>
+    <th class="col">Amount</th>
+    <th class="col">Timestamp</th>
+    <th class="col">is Valid</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tx of transactions; index as index">
+      <td>{{ index }}</td>
+      <td class="text-truncate">{{ tx.fromAddress }}
+        <span *ngIf="tx.fromAddress === null">System</span>
+      </td>
+      <td class="text-truncate">{{ tx.toAddress }}</td>
+      <td class="text-truncate">{{ tx.amount }}
+          <span *ngIf="tx.fromAddress === null" class="text-muted">(Block reward)</span>
+      </td>
+      <td class="text-truncate">{{ tx.timestamp | date:'MM d, y, HH:mm' }}</td>
+      <td class="text-truncate">
+        <span *ngIf="tx.isValid()">Yes</span>
+        <span *ngIf="!tx.isValid()">No</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
